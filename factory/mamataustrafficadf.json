@@ -1,0 +1,15 @@
+{
+	"name": "mamataustrafficadf",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Disabled",
+			"editable": true
+		}
+	},
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "c388d256-9829-454e-8e3e-65b2544521ff",
+		"tenantId": "2039815a-3b74-4a32-8908-3bf1c7b1adde"
+	}
+}
