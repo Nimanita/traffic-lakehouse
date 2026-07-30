@@ -1,0 +1,84 @@
+<svg viewBox="0 0 1520 620" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', Helvetica, Arial, sans-serif">
+  <defs>
+    <filter id="cardShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#0B2545" flood-opacity="0.15"/>
+    </filter>
+    <marker id="arrowHead" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#33415C"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1520" height="620" fill="#FFFFFF"/>
+  <text x="20" y="34" font-size="19" font-weight="700" fill="#0B2545">Traffic &amp; Roads Lakehouse — Architecture Overview</text>
+
+  <text x="150" y="90" text-anchor="middle" font-size="12" font-weight="700" fill="#8A94A6" letter-spacing="1.5">SOURCES</text>
+  <text x="475" y="90" text-anchor="middle" font-size="12" font-weight="700" fill="#8A94A6" letter-spacing="1.5">ORCHESTRATION</text>
+  <text x="805" y="90" text-anchor="middle" font-size="12" font-weight="700" fill="#8A94A6" letter-spacing="1.5">LANDING ZONE</text>
+  <text x="1145" y="90" text-anchor="middle" font-size="12" font-weight="700" fill="#8A94A6" letter-spacing="1.5">LAKEHOUSE</text>
+  <text x="1490" y="90" text-anchor="middle" font-size="12" font-weight="700" fill="#8A94A6" letter-spacing="1.5">CONSUME</text>
+
+  <!-- Source A -->
+  <rect x="30" y="150" width="240" height="90" rx="14" fill="#F4F5F7" stroke="#8A94A6" stroke-width="2" filter="url(#cardShadow)"/>
+  <text x="150" y="185" text-anchor="middle" font-size="15" font-weight="700" fill="#2B3242">Direct Feed</text>
+  <text x="150" y="206" text-anchor="middle" font-size="11.5" fill="#5B6472">untagged files</text>
+  <text x="150" y="222" text-anchor="middle" font-size="11.5" fill="#5B6472">default to source = A</text>
+
+  <!-- Source B: Council -->
+  <rect x="30" y="380" width="240" height="100" rx="14" fill="#E6F6F4" stroke="#14919B" stroke-width="2" filter="url(#cardShadow)"/>
+  <text x="150" y="412" text-anchor="middle" font-size="15" font-weight="700" fill="#0B4A48">Council Storage</text>
+  <text x="150" y="433" text-anchor="middle" font-size="11.5" fill="#0B4A48">mamataoutboundstorage</text>
+  <text x="150" y="450" text-anchor="middle" font-size="11.5" fill="#0B4A48">councilbstorage container</text>
+
+  <!-- ADF -->
+  <rect x="340" y="270" width="270" height="150" rx="14" fill="#E3F1FC" stroke="#1E88C7" stroke-width="2" filter="url(#cardShadow)"/>
+  <text x="475" y="305" text-anchor="middle" font-size="15" font-weight="700" fill="#0B3A57">Azure Data Factory</text>
+  <text x="475" y="325" text-anchor="middle" font-size="11.5" fill="#0B3A57">mamataustrafficadf</text>
+  <text x="475" y="350" text-anchor="middle" font-size="13" font-weight="600" fill="#0B3A57">incremental_pipeline</text>
+  <text x="475" y="372" text-anchor="middle" font-size="11" fill="#3D6E8F">ForEach table · CDC watermark</text>
+  <text x="475" y="389" text-anchor="middle" font-size="11" fill="#3D6E8F">tags rows source = B</text>
+
+  <!-- Landing -->
+  <rect x="690" y="280" width="230" height="120" rx="14" fill="#E6F6F4" stroke="#14919B" stroke-width="2" filter="url(#cardShadow)"/>
+  <text x="805" y="313" text-anchor="middle" font-size="15" font-weight="700" fill="#0B4A48">Landing Zone</text>
+  <text x="805" y="335" text-anchor="middle" font-size="11.5" fill="#0B4A48">ADLS Gen2</text>
+  <text x="805" y="352" text-anchor="middle" font-size="11.5" fill="#0B4A48">mamataustrafficstorage</text>
+  <text x="805" y="369" text-anchor="middle" font-size="11.5" fill="#0B4A48">container: landing</text>
+
+  <!-- Lakehouse outer -->
+  <rect x="980" y="110" width="330" height="470" rx="18" fill="#F5F7FA" stroke="#C7D0DC" stroke-width="2" stroke-dasharray="6,5"/>
+  <text x="1145" y="140" text-anchor="middle" font-size="12.5" font-weight="700" fill="#5B6472">dev_catalog</text>
+
+  <!-- Bronze -->
+  <rect x="1015" y="170" width="260" height="100" rx="14" fill="#F6E7D8" stroke="#A9702E" stroke-width="2" filter="url(#cardShadow)"/>
+  <text x="1145" y="205" text-anchor="middle" font-size="15" font-weight="700" fill="#4A2E12">Bronze</text>
+  <text x="1145" y="227" text-anchor="middle" font-size="11.5" fill="#6B4A26">raw_roads · raw_traffic</text>
+  <text x="1145" y="244" text-anchor="middle" font-size="11" fill="#8A6644">Auto Loader · schema-on-read</text>
+
+  <!-- Silver -->
+  <rect x="1015" y="300" width="260" height="100" rx="14" fill="#EEF1F3" stroke="#64748B" stroke-width="2" filter="url(#cardShadow)"/>
+  <text x="1145" y="335" text-anchor="middle" font-size="15" font-weight="700" fill="#1E293B">Silver</text>
+  <text x="1145" y="357" text-anchor="middle" font-size="11.5" fill="#3F4C5C">roads (SCD2) · traffic (upsert)</text>
+  <text x="1145" y="374" text-anchor="middle" font-size="11" fill="#5B6472">cleansed · typed · reconciled</text>
+
+  <!-- Gold -->
+  <rect x="1015" y="430" width="260" height="100" rx="14" fill="#FDF3D0" stroke="#C79A1E" stroke-width="2" filter="url(#cardShadow)"/>
+  <text x="1145" y="465" text-anchor="middle" font-size="15" font-weight="700" fill="#5C4A0A">Gold</text>
+  <text x="1145" y="487" text-anchor="middle" font-size="11.5" fill="#7A611A">gold_roads · gold_traffic</text>
+  <text x="1145" y="504" text-anchor="middle" font-size="11" fill="#96812F">overwrite · BI-ready</text>
+
+  <!-- Consumption -->
+  <rect x="1400" y="440" width="180" height="90" rx="14" fill="#E7F6EC" stroke="#2F9E52" stroke-width="2" filter="url(#cardShadow)"/>
+  <text x="1490" y="478" text-anchor="middle" font-size="14" font-weight="700" fill="#14532D">Power BI</text>
+  <text x="1490" y="497" text-anchor="middle" font-size="11.5" fill="#276B3E">Analytics</text>
+
+  <!-- Arrows -->
+  <path d="M270,195 C 470,195 470,340 690,340" fill="none" stroke="#33415C" stroke-width="2.2" marker-end="url(#arrowHead)"/>
+  <path d="M270,430 C 305,430 305,345 340,345" fill="none" stroke="#33415C" stroke-width="2.2" marker-end="url(#arrowHead)"/>
+  <path d="M610,345 L688,340" fill="none" stroke="#33415C" stroke-width="2.2" marker-end="url(#arrowHead)"/>
+  <path d="M920,340 C 960,340 980,220 1013,220" fill="none" stroke="#33415C" stroke-width="2.2" marker-end="url(#arrowHead)"/>
+  <path d="M1145,270 L1145,298" fill="none" stroke="#33415C" stroke-width="2.2" marker-end="url(#arrowHead)"/>
+  <path d="M1145,400 L1145,428" fill="none" stroke="#33415C" stroke-width="2.2" marker-end="url(#arrowHead)"/>
+  <path d="M1275,480 L1398,480" fill="none" stroke="#33415C" stroke-width="2.2" marker-end="url(#arrowHead)"/>
+
+  <text x="360" y="185" font-size="10.5" fill="#8A94A6" font-style="italic">bypasses ADF</text>
+</svg>

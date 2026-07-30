@@ -1,0 +1,58 @@
+<svg viewBox="0 0 1600 300" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', Helvetica, Arial, sans-serif">
+  <defs>
+    <filter id="cardShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#0B2545" flood-opacity="0.15"/>
+    </filter>
+    <marker id="arrowHead" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#33415C"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1600" height="300" fill="#FFFFFF"/>
+  <text x="20" y="34" font-size="19" font-weight="700" fill="#0B2545">Lakeflow Job — Landing → Gold</text>
+
+  <!-- Node 1: initial_config -->
+  <rect x="40" y="150" width="220" height="120" rx="14" fill="#F4F5F7" stroke="#8A94A6" stroke-width="2" stroke-dasharray="5,4" filter="url(#cardShadow)"/>
+  <text x="150" y="182" text-anchor="middle" font-size="10" font-weight="700" fill="#5B6472" letter-spacing="1">ONE-TIME SETUP</text>
+  <text x="150" y="210" text-anchor="middle" font-size="13.5" font-weight="700" fill="#2B3242">initial_config</text>
+  <text x="150" y="230" text-anchor="middle" font-size="10.5" fill="#5B6472">catalog · schemas</text>
+  <text x="150" y="245" text-anchor="middle" font-size="10.5" fill="#5B6472">tables · volumes</text>
+
+  <!-- Node 2: landing_check -->
+  <rect x="300" y="150" width="220" height="120" rx="14" fill="#E6F6F4" stroke="#14919B" stroke-width="2" filter="url(#cardShadow)"/>
+  <text x="410" y="182" text-anchor="middle" font-size="10" font-weight="700" fill="#0B4A48" letter-spacing="1">INGESTION</text>
+  <text x="410" y="212" text-anchor="middle" font-size="13.5" font-weight="700" fill="#0B4A48">01_landing_check</text>
+  <text x="410" y="234" text-anchor="middle" font-size="10.5" fill="#2C6E6A">landing zone readiness</text>
+
+  <!-- Node 3: bronze -->
+  <rect x="560" y="150" width="240" height="120" rx="14" fill="#F6E7D8" stroke="#A9702E" stroke-width="2" filter="url(#cardShadow)"/>
+  <text x="680" y="182" text-anchor="middle" font-size="10" font-weight="700" fill="#4A2E12" letter-spacing="1">BRONZE</text>
+  <text x="680" y="210" text-anchor="middle" font-size="12.5" font-weight="700" fill="#4A2E12">03_load_to_bronze</text>
+  <text x="680" y="226" text-anchor="middle" font-size="12.5" font-weight="700" fill="#4A2E12">_incremental_batch</text>
+  <text x="680" y="248" text-anchor="middle" font-size="10.5" fill="#8A6644">Auto Loader · availableNow</text>
+
+  <!-- Node 4: silver roads -->
+  <rect x="840" y="150" width="240" height="120" rx="14" fill="#EEF1F3" stroke="#64748B" stroke-width="2" filter="url(#cardShadow)"/>
+  <text x="960" y="182" text-anchor="middle" font-size="10" font-weight="700" fill="#1E293B" letter-spacing="1">SILVER · SCD2</text>
+  <text x="960" y="212" text-anchor="middle" font-size="13" font-weight="700" fill="#1E293B">04_silver_roads_batch</text>
+  <text x="960" y="234" text-anchor="middle" font-size="10.5" fill="#5B6472">merge with valid_from/to</text>
+
+  <!-- Node 5: silver traffic -->
+  <rect x="1120" y="150" width="240" height="120" rx="14" fill="#EEF1F3" stroke="#64748B" stroke-width="2" filter="url(#cardShadow)"/>
+  <text x="1240" y="182" text-anchor="middle" font-size="10" font-weight="700" fill="#1E293B" letter-spacing="1">SILVER · UPSERT</text>
+  <text x="1240" y="212" text-anchor="middle" font-size="13" font-weight="700" fill="#1E293B">03_silver_traffic_batch</text>
+  <text x="1240" y="234" text-anchor="middle" font-size="10.5" fill="#5B6472">joins silver.roads</text>
+
+  <!-- Node 6: gold -->
+  <rect x="1400" y="150" width="180" height="120" rx="14" fill="#FDF3D0" stroke="#C79A1E" stroke-width="2" filter="url(#cardShadow)"/>
+  <text x="1490" y="182" text-anchor="middle" font-size="10" font-weight="700" fill="#5C4A0A" letter-spacing="1">GOLD</text>
+  <text x="1490" y="212" text-anchor="middle" font-size="13" font-weight="700" fill="#5C4A0A">05_gold_batch</text>
+  <text x="1490" y="234" text-anchor="middle" font-size="10.5" fill="#96812F">overwrite · BI-ready</text>
+
+  <!-- arrows -->
+  <path d="M260,210 L298,210" fill="none" stroke="#33415C" stroke-width="2.4" stroke-dasharray="5,4" marker-end="url(#arrowHead)"/>
+  <path d="M520,210 L558,210" fill="none" stroke="#33415C" stroke-width="2.4" marker-end="url(#arrowHead)"/>
+  <path d="M800,210 L838,210" fill="none" stroke="#33415C" stroke-width="2.4" marker-end="url(#arrowHead)"/>
+  <path d="M1080,210 L1118,210" fill="none" stroke="#33415C" stroke-width="2.4" marker-end="url(#arrowHead)"/>
+  <path d="M1360,210 L1398,210" fill="none" stroke="#33415C" stroke-width="2.4" marker-end="url(#arrowHead)"/>
+</svg>
