@@ -11,7 +11,7 @@ An end-to-end **medallion lakehouse** on Azure that ingests UK road and traffic 
 
 Built as a hands-on project to work through real-world Databricks Data Engineer patterns end to end — incremental/CDC ingestion, schema evolution, SCD2, and job orchestration.
 
-![Architecture Overview](docs/architecture-overview.svg)
+![Architecture Overview](asset/architecture-overview.svg)
 
 ---
 
@@ -31,7 +31,7 @@ Two paths feed the same landing zone: an existing/direct feed (untagged, so it d
 
 ## 2. Ingestion — ADF `incremental_pipeline`
 
-![ADF Incremental Pipeline](docs/adf-incremental-pipeline.svg)
+![ADF Incremental Pipeline](asset/adf-incremental-pipeline.svg)
 
 The pipeline runs a `ForEach` over a parameterized `items` array — one branch per source table — so a single pipeline definition drives any number of tables. Each branch follows a **watermark / CDC pattern**, reading and writing its checkpoint from a small JSON file per table:
 
@@ -100,7 +100,7 @@ Two notebooks, with a real dependency: **roads runs before traffic**, since the 
 
 ## 6. Orchestration — Lakeflow Job
 
-![Lakeflow Job DAG](docs/lakeflow-job-dag.svg)
+![Lakeflow Job DAG](asset/lakeflow-job-dag.svg)
 
 `04_silver_roads_batch` runs before `03_silver_traffic_batch` in the job graph even though its filename sorts after it alphabetically — the real dependency comes from the `silver.roads` read inside the traffic notebook, not from the naming.
 
