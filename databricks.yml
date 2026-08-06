@@ -1,0 +1,16 @@
+bundle:
+  name: traffic-lakehouse
+
+include:
+  - resources/*.yml
+
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: https://adb-7405608105310815.15.azuredatabricks.net/
+  prod:
+    mode: production
+    workspace:
+      host: https://adb-7405608105310815.15.azuredatabricks.net/

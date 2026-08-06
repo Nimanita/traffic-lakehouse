@@ -1,0 +1,90 @@
+resources:
+  jobs:
+    etl_flow:
+      name: ETL FLOW
+      tasks:
+        - task_key: ingestion_at_landing
+          disable_auto_optimization: false
+          disabled: false
+          email_notifications: {}
+          environment_key: Default
+          max_retries: 2
+          min_retry_interval_millis: 30000
+          notebook_task:
+            notebook_path: /Workspace/Users/singhpratapnarayan9_gmail.com#ext#@singhpratapnarayan9gmail.onmicrosoft.com/traffic-lakehouse/notebooks/ingestion/01_landing_check
+            source: WORKSPACE
+          retry_on_timeout: false
+          run_if: ALL_SUCCESS
+          timeout_seconds: 0
+          webhook_notifications: {}
+        - task_key: ingestion_at_bronze
+          depends_on:
+            - task_key: ingestion_at_landing
+          disable_auto_optimization: false
+          disabled: false
+          email_notifications: {}
+          max_retries: 2
+          min_retry_interval_millis: 25000
+          notebook_task:
+            notebook_path: /Workspace/Users/singhpratapnarayan9_gmail.com#ext#@singhpratapnarayan9gmail.onmicrosoft.com/traffic-lakehouse/notebooks/ingestion/03_load_to_bronze_incremental_batch
+            source: WORKSPACE
+          retry_on_timeout: false
+          run_if: ALL_SUCCESS
+          timeout_seconds: 0
+          webhook_notifications: {}
+        - task_key: tranformation_at_silver_roads
+          depends_on:
+            - task_key: ingestion_at_bronze
+          disabled: false
+          email_notifications: {}
+          notebook_task:
+            notebook_path: /Workspace/Users/singhpratapnarayan9_gmail.com#ext#@singhpratapnarayan9gmail.onmicrosoft.com/traffic-lakehouse/notebooks/transformation/04_silver_roads_batch
+            source: WORKSPACE
+          run_if: ALL_SUCCESS
+          timeout_seconds: 0
+          webhook_notifications: {}
+        - task_key: transformation_at_silver_traffic
+          depends_on:
+            - task_key: tranformation_at_silver_roads
+          disabled: false
+          email_notifications: {}
+          notebook_task:
+            notebook_path: /Workspace/Users/singhpratapnarayan9_gmail.com#ext#@singhpratapnarayan9gmail.onmicrosoft.com/traffic-lakehouse/notebooks/transformation/03_silver_traffic_batch
+            source: WORKSPACE
+          run_if: ALL_SUCCESS
+          timeout_seconds: 0
+          webhook_notifications: {}
+        - task_key: transformation_at_gold
+          depends_on:
+            - task_key: transformation_at_silver_traffic
+          disabled: false
+          email_notifications: {}
+          notebook_task:
+            notebook_path: /Workspace/Users/singhpratapnarayan9_gmail.com#ext#@singhpratapnarayan9gmail.onmicrosoft.com/traffic-lakehouse/notebooks/transformation/05_gold_batch
+            source: WORKSPACE
+          run_if: ALL_SUCCESS
+          timeout_seconds: 0
+          webhook_notifications: {}
+      email_notifications:
+        no_alert_for_skipped_runs: false
+        on_failure:
+          - mamatasingh2507@gmail.com
+        on_start:
+          - mamatasingh2507@gmail.com
+      environments:
+        - environment_key: Default
+          spec:
+            environment_version: "5"
+      git_source:
+        git_branch: lakeflow
+        git_provider: gitHub
+        git_url: https://github.com/Nimanita/traffic-lakehouse
+      max_concurrent_runs: 3
+      notification_settings:
+        no_alert_for_canceled_runs: false
+        no_alert_for_skipped_runs: false
+      performance_target: PERFORMANCE_OPTIMIZED
+      queue:
+        enabled: true
+      timeout_seconds: 0
+      webhook_notifications: {}
